@@ -1,0 +1,20 @@
+# Blueprint de infraestrutura do CondoConecta (Render)
+# Referenciado na secao 7 do PGCS (Infraestrutura como Codigo)
+#
+# Este arquivo descreve, como codigo, os servicos que compoem os ambientes
+# de Homologacao e Producao, permitindo recriacao rapida e rastreavel.
+
+services:
+  - type: web
+    name: condoconecta-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+databases:
+  - name: condoconecta-db
+    plan: free
