@@ -1,0 +1,28 @@
+# Pipeline de Integracao Continua (CI) do CondoConecta
+# Referenciado na secao 5 do PGCS.
+#
+# Disparo manual por enquanto (workflow_dispatch), ate que o codigo do
+# backend/frontend seja implementado. Sera alterado para "pull_request"
+# assim que houver codigo para validar.
+
+name: CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Etapas previstas
+        run: |
+          echo "1. Instalar dependencias"
+          echo "2. Build da aplicacao"
+          echo "3. Lint (ESLint)"
+          echo "4. Testes unitarios (Jest)"
+          echo "5. Testes de integracao"
+          echo "6. Analise de dependencias (npm audit)"
+          echo "7. Publicacao da imagem no GHCR"
