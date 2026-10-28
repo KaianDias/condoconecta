@@ -1,8 +1,5 @@
 # Pipeline de Entrega/Implantacao Continua (CD) do CondoConecta
 # Referenciado na secao 6 do PGCS.
-#
-# Disparo manual por enquanto (workflow_dispatch), ate que exista uma
-# imagem publicada para promover entre ambientes.
 
 name: CD
 
@@ -10,14 +7,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  deploy-staging:
     runs-on: ubuntu-latest
+    environment: staging
     steps:
-      - name: Etapas previstas
-        run: |
-          echo "1. Deploy em Homologacao (Render)"
-          echo "2. Testes de aceitacao em staging"
-          echo "3. Gate de aprovacao manual para producao"
-          echo "4. Deploy em Producao (rolling update)"
-          echo "5. Smoke tests e health check"
-          echo "6. Geracao de tag de release"
+      - name: Deploy em Homologacao
+        run: echo "Deploy em staging (Render)"
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    environment: production
+    steps:
+      - name: Deploy em Producao
+        run: echo "Deploy em producao, apos aprovacao do revisor"
